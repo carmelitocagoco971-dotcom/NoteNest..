@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NoteNest - Premium Stationery & Study Essentials</title>
+  <style>
+    /* Global Variables & Resets */
+    :root {
+      --navy: #1D3557;
+      --coral: #E63946;
+      --yellow: #FFD166;
+      --teal: #2A9D8F;
+      --light-bg: #F8F9FA;
+      --card-border: #E2E8F0;
+      --text-dark: #2D3748;
+      --text-muted: #718096;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* Top Utility Bar */
+    .top-bar {
+      background-color: var(--navy);
+      color: #ffffff;
+      padding: 8px 5%;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .auth-buttons button {
+      background: transparent;
+      border: 1px solid var(--yellow);
+      color: var(--yellow);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .auth-buttons button:hover {
+      background: var(--yellow);
+      color: var(--navy);
+    }
+
+    .user-welcome {
+      color: var(--yellow);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-welcome span {
+      cursor: pointer;
+      text-decoration: underline;
+      font-size: 11px;
+      color: #fff;
+    }
+
+    .currency-select {
+      background-color: #2b4c7e;
+      color: #fff;
+      padding: 3px 8px;
+      font-size: 12px;
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Main Header */
+    .header {
+      background-color: #ffffff;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--card-border);
+      gap: 20px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      max-width: 500px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 16px;
+      border: 2px solid var(--teal);
+      border-radius: 25px 0 0 25px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-box button {
+      background-color: var(--teal);
+      color: white;
+      border: 2px solid var(--teal);
+      padding: 10px 22px;
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .search-box button:hover {
+      background-color: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-cart, .header-history {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      font-size: 13px;
+    }
+
+    .header-cart {
+      background-color: var(--yellow);
+      color: var(--navy);
+    }
+
+    .header-history {
+      background-color: var(--navy);
+      color: white;
+    }
+
+    .header-cart:hover, .header-history:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
+    /* Navigation Bar */
+    .nav-bar {
+      background-color: var(--coral);
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-bar ul {
+      display: flex;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .nav-bar li a {
+      display: block;
+      padding: 14px 22px;
+      color: #ffffff;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: 0.5px;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .nav-bar li a:hover, .nav-bar li a.active {
+      background-color: var(--yellow);
+      color: var(--navy);
+    }
+
+    /* Container & Layout */
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      margin: 30px auto;
+      padding: 0 20px;
+      flex-grow: 1;
+    }
+
+    .view-section {
+      display: none;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .view-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 24px;
+      color: var(--navy);
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--coral);
+      display: inline-block;
+      font-weight: 800;
+    }
+
+    /* Hero Promo Banners */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 35px;
+    }
+
+    .promo-card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-left: 6px solid var(--teal);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .promo-card.red { border-left-color: var(--coral); }
+    .promo-card.yellow { border-left-color: var(--yellow); }
+
+    .promo-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .promo-card h2 {
+      color: var(--navy);
+      font-size: 26px;
+      margin: 6px 0;
+    }
+
+    .promo-card p {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    /* Category Filter Buttons in Shop Tab */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 25px;
+      align-items: center;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--teal);
+      color: white;
+      border-color: var(--teal);
+    }
+
+    /* Brands Badges */
+    .brands-section {
+      background: white;
+      padding: 20px 25px;
+      border-radius: 12px;
+      margin-bottom: 35px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid var(--card-border);
+    }
+
+    .brands-section h4 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: var(--navy);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .brand-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .brand-badge {
+      font-weight: 800;
+      font-size: 14px;
+      padding: 8px 18px;
+      border-radius: 20px;
+      background: var(--light-bg);
+      border: 1px solid var(--card-border);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .brand-badge:hover {
+      background: var(--navy);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Products Grid & Product Card */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--coral);
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    .product-img-wrap {
+      height: 200px;
+      background-color: #f1f5f9;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    .product-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .product-brand {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .product-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .product-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 10px;
+      border-top: 1px solid var(--light-bg);
+    }
+
+    .price {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--coral);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-detail, .btn-add-cart {
+      border: none;
+      padding: 8px 12px;
+      border-radius: 18px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-detail {
+      background-color: #edf2f7;
+      color: var(--navy);
+    }
+
+    .btn-detail:hover {
+      background-color: #e2e8f0;
+    }
+
+    .btn-add-cart {
+      background-color: var(--teal);
+      color: white;
+    }
+
+    .btn-add-cart:hover {
+      background-color: var(--navy);
+    }
+
+    /* Delivery Grid */
+    .delivery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .delivery-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .delivery-card h3 {
+      color: var(--navy);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .delivery-card p, .delivery-card ul {
+      color: var(--text-dark);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .delivery-card ul {
+      list-style-type: none;
+      margin-top: 10px;
+    }
+
+    .delivery-card ul li {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .delivery-card ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: bold;
+    }
+
+    /* Cart & History Tables */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      margin-bottom: 25px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid var(--card-border);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .data-table th, .data-table td {
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+      vertical-align: middle;
+    }
+
+    .data-table th {
+      background-color: var(--navy);
+      color: white;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cart-item-img {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-right: 12px;
+    }
+
+    .qty-btn {
+      background: var(--light-bg);
+      border: 1px solid var(--card-border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .remove-btn {
+      background: var(--coral);
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .cart-summary {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 380px;
+      margin-left: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid var(--card-border);
+    }
+
+    .cart-summary div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .cart-summary .total {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--coral);
+      border-top: 2px dashed var(--card-border);
+      padding-top: 12px;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      background: var(--teal);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+      margin-top: 15px;
+      transition: background 0.2s;
+    }
+
+    .btn-checkout:hover {
+      background: var(--navy);
+    }
+
+    /* Modal System */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 550px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 26px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .modal-close:hover { color: black; }
+
+    /* Forms */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--teal);
+    }
+
+    /* Toast Notifications */
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: var(--navy);
+      color: #fff;
+      text-align: center;
+      border-radius: 30px;
+      padding: 14px 20px;
+      position: fixed;
+      z-index: 2000;
+      right: 30px;
+      bottom: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      border: 2px solid var(--yellow);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    #toast.show {
+      visibility: visible;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    }
+
+    @keyframes fadein {
+      from { bottom: 0; opacity: 0; }
+      to { bottom: 30px; opacity: 1; }
+    }
+
+    @keyframes fadeout {
+      from { bottom: 30px; opacity: 1; }
+      to { bottom: 0; opacity: 0; }
+    }
+
+    /* Badges */
+    .badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: bold;
+      color: white;
+    }
+    .badge-delivered { background-color: var(--teal); }
+    .badge-processing { background-color: var(--coral); }
+
+    /* About & Contact Info */
+    .info-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      margin-bottom: 25px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .info-box h3 {
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+
+    .info-box p {
+      color: var(--text-dark);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .contact-details-list {
+      list-style: none;
+      margin-top: 15px;
+    }
+
+    .contact-details-list li {
+      margin-bottom: 12px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--navy);
+      color: #ffffff;
+      text-align: center;
+      padding: 25px 20px;
+      font-size: 13px;
+      margin-top: 50px;
+      border-top: 4px solid var(--coral);
+    }
+
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    .credits {
+      color: var(--yellow);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .search-box {
+        max-width: 100%;
+      }
+      .nav-bar li a {
+        padding: 10px 12px;
+        font-size: 11px;
+      }
+      .header-actions {
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar with Authentication & Currency -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <span>🚚 Express Delivery: 1-3 Business Days Worldwide</span>
+    </div>
+    <div class="top-bar-right">
+      <div id="user-auth-area" class="auth-buttons">
+        <button onclick="openModal('auth-modal')">Login / Sign Up</button>
+      </div>
+      <div>
+        Currency: 
+        <select id="currency-select" class="currency-select" onchange="changeCurrency(this.value)">
+          <option value="USD">USD ($)</option>
+          <option value="PHP">PHP (₱)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header with Logo, Search, Cart Button, and Order History Button -->
+  <header class="header">
+    <div class="logo-container" onclick="switchTab('home')">
+      <svg width="220" height="55" viewBox="0 0 220 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="220" height="55" rx="10" fill="#1D3557"/>
+        <path d="M22 36C22 30 32 28 37 28C42 28 52 30 52 36C52 40 42 42 37 42C32 42 22 40 22 36Z" fill="#FFD166"/>
+        <path d="M32 30L42 16L46 20L36 34H32V30Z" fill="#E63946"/>
+        <path d="M42 16L44 13L48 17L46 20L42 16Z" fill="#FFFFFF"/>
+        <text x="62" y="34" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="24" fill="#FFFFFF">Note<tspan fill="#FFD166">Nest</tspan></text>
+        <text x="62" y="46" font-family="'Segoe UI', sans-serif" font-size="9" font-weight="600" fill="#2A9D8F" letter-spacing="1">STATIONERY STORE</text>
+      </svg>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="Search notebooks, pens, highlighters..." onkeyup="if(event.key==='Enter') handleSearch()">
+      <button onclick="handleSearch()">Search</button>
+    </div>
+
+    <!-- Top Action Buttons: Cart & Order History -->
+    <div class="header-actions">
+      <div class="header-history" onclick="openModal('history-modal')">
+        📋 History
+      </div>
+      <div class="header-cart" onclick="openModal('cart-modal')">
+        🛒 Cart: <span id="cart-badge-count">0 items</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Bar: Home, Shop, Delivery, About Us, Contact Us -->
+  <nav class="nav-bar">
+    <ul>
+      <li><a id="nav-home" onclick="switchTab('home')" class="active">Home</a></li>
+      <li><a id="nav-shop" onclick="switchTab('shop')">Shop</a></li>
+      <li><a id="nav-delivery" onclick="switchTab('delivery')">Delivery</a></li>
+      <li><a id="nav-about" onclick="switchTab('about')">About Us</a></li>
+      <li><a id="nav-contact" onclick="switchTab('contact')">Contact Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Container -->
+  <div class="container">
+
+    <!-- 1. HOME VIEW -->
+    <div id="view-home" class="view-section active">
+      <!-- Promo Banners -->
+      <div class="promo-grid">
+        <div class="promo-card red">
+          <h3>Special Offer</h3>
+          <h2>Free Worldwide Shipping</h2>
+          <p>On all stationery orders over $35.00 / ₱1,900.00</p>
+        </div>
+        <div class="promo-card yellow">
+          <h3>Back to School Sale</h3>
+          <h2>Up to 40% Off</h2>
+          <p>Discount applied on study planners & aesthetic marker sets.</p>
+        </div>
+        <div class="promo-card">
+          <h3>New Arrivals</h3>
+          <h2>Japanese Journaling</h2>
+          <p>Premium fountain-pen friendly smooth paper notebooks.</p>
+        </div>
+      </div>
+
+      <!-- Featured Brand Logos -->
+      <div class="brands-section">
+        <h4>Featured Brands</h4>
+        <div class="brand-logos">
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('Daily like')">Daily like</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('COPIC')">COPIC</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('3M')">3M Post-it</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('Craft Design Tech')">Craft Design Tech</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('Crayola')">Crayola</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('Zebra')">Zebra Mildliner</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('Uni-ball')">Uni-ball</span>
+          <span class="brand-badge" onclick="filterByBrandAndNavigate('Kokuyo')">Kokuyo</span>
+        </div>
+      </div>
+
+      <!-- Home Featured Grid -->
+      <h2 class="section-title">Featured Products</h2>
+      <div class="product-grid" id="home-product-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- 2. SHOP VIEW -->
+    <div id="view-shop" class="view-section">
+      <h2 class="section-title" id="shop-header-title">Stationery Shop</h2>
+      
+      <!-- Category Filter Pills -->
+      <div class="filter-bar">
+        <span style="font-weight: bold; font-size: 13px; color: var(--navy);">Filter Category:</span>
+        <button class="filter-btn active" id="btn-cat-all" onclick="setCategoryFilter('All')">All Items</button>
+        <button class="filter-btn" id="btn-cat-paper" onclick="setCategoryFilter('Paper & Notebooks')">Paper & Notebooks</button>
+        <button class="filter-btn" id="btn-cat-writing" onclick="setCategoryFilter('Writing Instruments')">Writing Instruments</button>
+        <button class="filter-btn" id="btn-cat-office" onclick="setCategoryFilter('Office Tools')">Office Tools</button>
+        <button class="filter-btn" id="btn-cat-craft" onclick="setCategoryFilter('Crafting & Art')">Crafting & Art</button>
+      </div>
+
+      <!-- Shop Products Grid -->
+      <div class="product-grid" id="shop-product-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- 3. DELIVERY VIEW -->
+    <div id="view-delivery" class="view-section">
+      <h2 class="section-title">Delivery & Shipping Options</h2>
+      <div class="delivery-grid">
+        <div class="delivery-card">
+          <h3>🚚 Standard Local Shipping</h3>
+          <p><strong>3 - 5 Business Days</strong></p>
+          <ul>
+            <li>Flat Rate: $3.50 / ₱195.00</li>
+            <li>Free for orders over $35.00 / ₱1,900.00</li>
+            <li>Real-time SMS tracking updates</li>
+          </ul>
+        </div>
+        <div class="delivery-card">
+          <h3>⚡ Express Courier</h3>
+          <p><strong>1 - 2 Business Days</strong></p>
+          <ul>
+            <li>Flat Rate: $7.50 / ₱420.00</li>
+            <li>Priority dispatch within 12 hours</li>
+            <li>Direct door-to-door delivery</li>
+          </ul>
+        </div>
+        <div class="delivery-card">
+          <h3>📦 International Airmail</h3>
+          <p><strong>7 - 12 Business Days</strong></p>
+          <ul>
+            <li>Calculated at checkout based on weight</li>
+            <li>Includes customs declaration & insurance</li>
+            <li>Delivered by local postal partners</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ABOUT US VIEW -->
+    <div id="view-about" class="view-section">
+      <h2 class="section-title">About NoteNest</h2>
+      <div class="info-box">
+        <h3>Welcome to NoteNest Stationery Store!</h3>
+        <p>At <strong>NoteNest</strong>, we believe that the right stationery tools can inspire productivity, foster creativity, and bring joy to everyday study and work. Founded with a passion for beautiful paper goods and ergonomic office tools, we bring you curated supplies from top global brands.</p>
+        <br>
+        <p>Whether you're setting up a bullet journal, gearing up for examinations, or designing a cozy desk setup, NoteNest is your trusted partner for high-quality, beautifully designed stationery.</p>
+      </div>
+    </div>
+
+    <!-- 5. CONTACT US VIEW -->
+    <div id="view-contact" class="view-section">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="delivery-grid">
+        <div class="info-box">
+          <h3>Get In Touch</h3>
+          <p>Have questions about your order, shipping, or product recommendations? Feel free to call or email us anytime!</p>
+          <ul class="contact-details-list">
+            <li>📞 <strong>Phone:</strong> 0976 279 1149 / 0977 107 7058</li>
+            <li>✉️ <strong>Email 1:</strong> jcbranzuela729@gmail.com</li>
+            <li>✉️ <strong>Email 2:</strong> analoucagoco@gmail.com</li>
+            <li>📍 <strong>Main Hub:</strong> NoteNest Stationery HQ, Metro Manila, Philippines</li>
+          </ul>
+        </div>
+        <div class="info-box">
+          <h3>Send Us a Direct Message</h3>
+          <form onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" required placeholder="e.g. Jane Doe">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" required placeholder="e.g. jane@example.com">
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea rows="4" required placeholder="How can we help you?"></textarea>
+            </div>
+            <button type="submit" class="btn-checkout">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CART MODAL -->
+  <div class="modal-overlay" id="cart-modal">
+    <div class="modal-card">
+      <span class="modal-close" onclick="closeModal('cart-modal')">&times;</span>
+      <h2 style="color: var(--navy); margin-bottom: 15px;">Your Shopping Cart 🛒</h2>
+      <div id="cart-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ORDER HISTORY MODAL -->
+  <div class="modal-overlay" id="history-modal">
+    <div class="modal-card">
+      <span class="modal-close" onclick="closeModal('history-modal')">&times;</span>
+      <h2 style="color: var(--navy); margin-bottom: 15px;">Order History & Tracking 📋</h2>
+      <div id="history-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- AUTH MODAL (Login & Sign Up) -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-card">
+      <span class="modal-close" onclick="closeModal('auth-modal')">&times;</span>
+      <h2 id="auth-title" style="color: var(--navy); margin-bottom: 15px;">Login to NoteNest</h2>
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+        <div class="form-group" id="name-group" style="display: none;">
+          <label>Full Name</label>
+          <input type="text" id="auth-name" placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="auth-email" required placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="auth-pass" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn-checkout" id="auth-submit-btn">Sign In</button>
+      </form>
+      <p style="margin-top: 15px; text-align: center; font-size: 13px; color: var(--text-muted);">
+        <span id="auth-toggle-msg">Don't have an account?</span> 
+        <a href="javascript:void(0)" onclick="toggleAuthMode()" style="color: var(--teal); font-weight: bold;" id="auth-toggle-link">Sign Up here</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL MODAL (View Option) -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-card">
+      <span class="modal-close" onclick="closeModal('product-modal')">&times;</span>
+      <div id="product-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-card">
+      <span class="modal-close" onclick="closeModal('checkout-modal')">&times;</span>
+      <h2 style="color: var(--navy); margin-bottom: 15px;">Checkout Order</h2>
+      <form id="checkout-form" onsubmit="processCheckout(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="cust-name" required placeholder="Jane Doe">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="cust-email" required placeholder="jane@example.com">
+        </div>
+        <div class="form-group">
+          <label>Delivery Address</label>
+          <textarea id="cust-address" rows="3" required placeholder="123 Street, City, Zip Code, Country"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Payment Method</label>
+          <select id="cust-payment">
+            <option>Cash on Delivery (COD)</option>
+            <option>GCash / E-Wallet</option>
+            <option>Credit / Debit Card</option>
+          </select>
+        </div>
+        <div style="margin: 15px 0; background: var(--light-bg); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between;">
+          <strong>Total Payable:</strong>
+          <span id="checkout-total-price" style="color: var(--coral); font-weight: 800; font-size: 16px;"></span>
+        </div>
+        <button type="submit" class="btn-checkout">Confirm & Place Order</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ORDER DETAIL MODAL -->
+  <div class="modal-overlay" id="order-modal">
+    <div class="modal-card">
+      <span class="modal-close" onclick="closeModal('order-modal')">&times;</span>
+      <div id="order-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast">Notification Message</div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; NoteNest Stationery Store. All Rights Reserved.</p>
+    <p class="credits">Webpage Development Concept by: Jenna Dapat & Analou Cagoco</p>
+  </footer>
+
+  <!-- Application Logic JavaScript -->
+  <script>
+    // --- Expanded Product Database (Total 31 items) ---
+    const PRODUCTS = [
+      // Original 16 products
+      { id: 1, name: "Patterned Floral Notebook Set", category: "Paper & Notebooks", brand: "Daily like", priceUSD: 8.50, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "High-quality lined paper notebook set featuring floral covers, perfect for journaling and note-taking." },
+      { id: 2, name: "Desktop Heavy Hole Puncher", category: "Office Tools", brand: "Craft Design Tech", priceUSD: 14.20, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Ergonomic metallic hole puncher with alignment guide for clean binder filing." },
+      { id: 3, name: "Alcohol Brush Marker 12-Set", category: "Crafting & Art", brand: "COPIC", priceUSD: 24.00, img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80", desc: "Professional dual-tip alcohol sketch markers for illustrations and lettering." },
+      { id: 4, name: "Heavy Duty Desk Stapler Set", category: "Office Tools", brand: "3M", priceUSD: 9.80, img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", desc: "Durable non-slip office stapler with 1,000 extra staples included." },
+      { id: 5, name: "Pastel Sticky Notes Multi-Pack", category: "Paper & Notebooks", brand: "3M", priceUSD: 4.50, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Ultra-adhesive sticky note pad set in soft aesthetic pastel shades." },
+      { id: 6, name: "Zebra Mildliner Double-Ended Highlighters", category: "Writing Instruments", brand: "Zebra", priceUSD: 11.50, img: "https://images.unsplash.com/photo-1585336261026-6757688719d3?auto=format&fit=crop&w=600&q=80", desc: "5-pack double-ended mild color highlighters for study notes and planners." },
+      { id: 7, name: "Aesthetic Washi Tape Roll Bundle", category: "Crafting & Art", brand: "Daily like", priceUSD: 6.90, img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80", desc: "Decorative masking tape set ideal for bullet journal spreads and gift wrapping." },
+      { id: 8, name: "Multi-Color Ring Binder Folder", category: "Paper & Notebooks", brand: "Crayola", priceUSD: 5.20, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "Vibrant subject organizer folder for organizing class notes and documents." },
+      { id: 9, name: "Smooth Gel Ink Pen 0.5mm (10-Pack)", category: "Writing Instruments", brand: "Zebra", priceUSD: 8.90, img: "https://images.unsplash.com/photo-1585336261026-6757688719d3?auto=format&fit=crop&w=600&q=80", desc: "Quick-drying smear-resistant fine point gel pens ideal for rapid note-taking." },
+      { id: 10, name: "Midori Spiral Ring Journal", category: "Paper & Notebooks", brand: "Craft Design Tech", priceUSD: 12.50, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "Thick textured kraft cover sketchbook notebook with high bleed-resistance." },
+      { id: 11, name: "Solid Brass Ruler & Paper Clips", category: "Office Tools", brand: "Craft Design Tech", priceUSD: 6.50, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Vintage solid brass 15cm measuring scale paired with matching metallic page clips." },
+      { id: 12, name: "Student Watercolor Palette (24 Colors)", category: "Crafting & Art", brand: "COPIC", priceUSD: 18.50, img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80", desc: "Richly pigmented water-based paint pans with refillable water brush pen." },
+      { id: 13, name: "Aesthetic Corduroy Pencil Case", category: "Office Tools", brand: "Daily like", priceUSD: 9.90, img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", desc: "Spacious multi-compartment pouch for carrying pens, highlighters, and tools." },
+      { id: 14, name: "Precision Paper Trimmer Cutter", category: "Office Tools", brand: "Craft Design Tech", priceUSD: 15.90, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Rotary paper cutter with grid guidelines for precise card stock slicing." },
+      { id: 15, name: "Fine Tip Calligraphy Brush Pen Trio", category: "Writing Instruments", brand: "Zebra", priceUSD: 10.00, img: "https://images.unsplash.com/photo-1585336261026-6757688719d3?auto=format&fit=crop&w=600&q=80", desc: "Flexible tip lettering markers for modern hand lettering and sketching." },
+      { id: 16, name: "Crayola Washable SuperTips Markers (20-Pack)", category: "Crafting & Art", brand: "Crayola", priceUSD: 7.20, img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80", desc: "Versatile markers capable of drawing thick or thin lines without bleeding." },
+      
+      // 15 NEW functional & reasonably priced stationery products
+      { id: 17, name: "A5 Hardcover Grid Bullet Journal", category: "Paper & Notebooks", brand: "Daily like", priceUSD: 9.50, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "160 GSM thick bleed-proof dotted journal with ribbon bookmark and elastic closure." },
+      { id: 18, name: "Uni-ball One Gel Pen Set (0.38mm 5-Color)", category: "Writing Instruments", brand: "Uni-ball", priceUSD: 7.80, img: "https://images.unsplash.com/photo-1585336261026-6757688719d3?auto=format&fit=crop&w=600&q=80", desc: "Ultra-pigmented dark ink gel pens that dry instantly for clear note-taking." },
+      { id: 19, name: "Kokuyo Campus Smart Binder (B5 26-Ring)", category: "Paper & Notebooks", brand: "Kokuyo", priceUSD: 8.90, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "Slim binder folder holding refillable loose-leaf paper for flexible class organization." },
+      { id: 20, name: "Ergonomic Pastel Scissors Set", category: "Office Tools", brand: "Craft Design Tech", priceUSD: 4.80, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Non-stick fluorine-coated stainless steel craft scissors with soft comfort grips." },
+      { id: 21, name: "Correction Tape & Adhesive Glue Tape Pen", category: "Office Tools", brand: "3M", priceUSD: 3.90, img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", desc: "Dual mini applicator with instant-dry whiteout tape on one end and sticky glue tape on the other." },
+      { id: 22, name: "Transparent Index Sticky Tabs (200 Strip Set)", category: "Paper & Notebooks", brand: "3M", priceUSD: 3.20, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Waterproof repositionable plastic page flags for book annotation and indexing." },
+      { id: 23, name: "Mechanical Pencil Lead 0.5mm HB (3-Tube Pack)", category: "Writing Instruments", brand: "Zebra", priceUSD: 3.50, img: "https://images.unsplash.com/photo-1585336261026-6757688719d3?auto=format&fit=crop&w=600&q=80", desc: "Smooth high-density graphite lead refills engineered to prevent easy breakage." },
+      { id: 24, name: "Metallic Acrylic Paint Markers (8 Colors)", category: "Crafting & Art", brand: "COPIC", priceUSD: 11.90, img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80", desc: "Opaque metallic paint pens for decorating glass, photo albums, dark cardstock, and wood." },
+      { id: 25, name: "Expandable Accordion Document Organizer", category: "Office Tools", brand: "Daily like", priceUSD: 7.90, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "12-pocket waterproof letter-size file folder with color-coded index tags." },
+      { id: 26, name: "Kokuyo Beetle Tip Dual-Color Highlighters (3-Pack)", category: "Writing Instruments", brand: "Kokuyo", priceUSD: 6.40, img: "https://images.unsplash.com/photo-1585336261026-6757688719d3?auto=format&fit=crop&w=600&q=80", desc: "Innovative split chisel nib pen featuring two soft highlighter colors in one tip." },
+      { id: 27, name: "Self-Healing A4 Cutting Mat", category: "Crafting & Art", brand: "Craft Design Tech", priceUSD: 8.20, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Durable 5-layer grid-lined rotary surface for crafting, trimming, and hobby modeling." },
+      { id: 28, name: "Minimalist Clear Mesh Stationery Case", category: "Office Tools", brand: "Daily like", priceUSD: 4.20, img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", desc: "Lightweight transparent zip pouch for quickly identifying exam pens and calculators." },
+      { id: 29, name: "Spiral Academic Weekly Study Planner", category: "Paper & Notebooks", brand: "Daily like", priceUSD: 9.80, img: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=600&q=80", desc: "Undated 12-month study planner with assignment trackers, goal sheets, and habit logs." },
+      { id: 30, name: "Colored Metal Paper Clips & Binder Clamps Box", category: "Office Tools", brand: "3M", priceUSD: 5.50, img: "https://images.unsplash.com/photo-1586075010923-2dd4570fb338?auto=format&fit=crop&w=600&q=80", desc: "Assorted 120-piece tub of rust-proof coated vinyl paperclips and mini binder foldback clips." },
+      { id: 31, name: "Dual-Power Portable Desk Calculator", category: "Office Tools", brand: "Craft Design Tech", priceUSD: 10.50, img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80", desc: "Compact 12-digit solar and battery powered desktop calculator with responsive mechanical-touch keys." }
+    ];
+
+    const USD_TO_PHP = 56.5;
+    let currentCurrency = "USD";
+    let selectedCategory = "All";
+    let selectedBrand = null;
+
+    let cart = JSON.parse(localStorage.getItem('notenest_cart')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('notenest_user')) || null;
+    let isSignUpMode = false;
+
+    let orderHistory = JSON.parse(localStorage.getItem('notenest_orders')) || [
+      {
+        id: "NN-948102",
+        date: "2026-03-10",
+        customer: { name: "Jenna Dapat", email: "jenna@example.com", address: "Manila, Philippines", payment: "GCash" },
+        items: [{ id: 1, name: "Patterned Floral Notebook Set", priceUSD: 8.50, qty: 2 }],
+        totalUSD: 17.00,
+        status: "Delivered"
+      }
+    ];
+
+    // --- Navigation ---
+    function switchTab(tabId) {
+      document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-bar a').forEach(el => el.classList.remove('active'));
+
+      const targetView = document.getElementById(`view-${tabId}`) || document.getElementById('view-home');
+      targetView.classList.add('active');
+
+      const navBtn = document.getElementById(`nav-${tabId}`);
+      if (navBtn) navBtn.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Currency Switching ---
+    function changeCurrency(curr) {
+      currentCurrency = curr;
+      renderAllProductGrids();
+      if (document.getElementById('cart-modal').classList.contains('active')) renderCartModal();
+      if (document.getElementById('history-modal').classList.contains('active')) renderHistoryModal();
+    }
+
+    function formatPrice(valUSD) {
+      if (currentCurrency === "PHP") {
+        return `₱${(valUSD * USD_TO_PHP).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      }
+      return `$${valUSD.toFixed(2)}`;
+    }
+
+    // --- Filtering ---
+    function setCategoryFilter(cat) {
+      selectedCategory = cat;
+      selectedBrand = null;
+
+      // Update button styling
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      if (cat === 'All') document.getElementById('btn-cat-all').classList.add('active');
+      else if (cat === 'Paper & Notebooks') document.getElementById('btn-cat-paper').classList.add('active');
+      else if (cat === 'Writing Instruments') document.getElementById('btn-cat-writing').classList.add('active');
+      else if (cat === 'Office Tools') document.getElementById('btn-cat-office').classList.add('active');
+      else if (cat === 'Crafting & Art') document.getElementById('btn-cat-craft').classList.add('active');
+
+      renderShopGrid();
+    }
+
+    function filterByBrandAndNavigate(brandName) {
+      selectedBrand = brandName;
+      selectedCategory = "All";
+      switchTab('shop');
+      renderShopGrid();
+      showToast(`Filtered by brand: ${brandName}`);
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('search-input').value.toLowerCase().trim();
+      switchTab('shop');
+      renderShopGrid(query);
+    }
+
+    // --- Render Products ---
+    function createProductCardHTML(p) {
+      return `
+        <div class="product-card">
+          <span class="product-badge">${p.category}</span>
+          <div class="product-img-wrap" onclick="openProductModal(${p.id})">
+            <img src="${p.img}" alt="${p.name}">
+          </div>
+          <div class="product-info">
+            <div class="product-brand">${p.brand}</div>
+            <div class="product-title">${p.name}</div>
+            <div class="product-desc">${p.desc}</div>
+            <div class="product-footer">
+              <span class="price">${formatPrice(p.priceUSD)}</span>
+              <div class="btn-group">
+                <button class="btn-detail" onclick="openProductModal(${p.id})">View</button>
+                <button class="btn-add-cart" onclick="addToCart(${p.id})">Add to Cart 🛒</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderHomeGrid() {
+      const container = document.getElementById('home-product-grid');
+      container.innerHTML = PRODUCTS.slice(0, 8).map(p => createProductCardHTML(p)).join('');
+    }
+
+    function renderShopGrid(searchQuery = "") {
+      const container = document.getElementById('shop-product-grid');
+      let filtered = PRODUCTS.filter(p => {
+        const matchesCategory = selectedCategory === "All" || p.category === selectedCategory;
+        const matchesBrand = !selectedBrand || p.brand === selectedBrand;
+        const matchesSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.desc.toLowerCase().includes(searchQuery);
+        return matchesCategory && matchesBrand && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">No products found matching your search.</p>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(p => createProductCardHTML(p)).join('');
+    }
+
+    function renderAllProductGrids() {
+      renderHomeGrid();
+      renderShopGrid();
+    }
+
+    // --- Cart Functions ---
+    function addToCart(productId, qty = 1) {
+      const existing = cart.find(item => item.id === productId);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        const prod = PRODUCTS.find(p => p.id === productId);
+        cart.push({ ...prod, qty: qty });
+      }
+      saveCart();
+      showToast("Item added to cart!");
+    }
+
+    function updateQty(productId, delta) {
+      const item = cart.find(i => i.id === productId);
+      if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) cart = cart.filter(i => i.id !== productId);
+      }
+      saveCart();
+      renderCartModal();
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(i => i.id !== productId);
+      saveCart();
+      renderCartModal();
+      showToast("Item removed.");
+    }
+
+    function saveCart() {
+      localStorage.setItem('notenest_cart', JSON.stringify(cart));
+      updateCartBadge();
+    }
+
+    function updateCartBadge() {
+      const count = cart.reduce((sum, item) => sum + item.qty, 0);
+      document.getElementById('cart-badge-count').innerText = `${count} item${count === 1 ? '' : 's'}`;
+    }
+
+    function renderCartModal() {
+      const container = document.getElementById('cart-modal-body');
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 30px;">
+            <h3 style="color: var(--navy);">Your cart is empty 🛒</h3>
+            <p style="color: var(--text-muted); margin-top: 10px;">Explore our store and add items!</p>
+          </div>
+        `;
+        return;
+      }
+
+      let subtotalUSD = 0;
+      let rowsHTML = cart.map(item => {
+        const itemTotal = item.priceUSD * item.qty;
+        subtotalUSD += itemTotal;
+        return `
+          <tr>
+            <td>
+              <div style="display:flex; align-items:center;">
+                <img src="${item.img}" class="cart-item-img" alt="${item.name}">
+                <strong>${item.name}</strong>
+              </div>
+            </td>
+            <td>${formatPrice(item.priceUSD)}</td>
+            <td>
+              <button class="qty-btn" onclick="updateQty(${item.id}, -1)">-</button>
+              <span style="margin: 0 6px; font-weight: bold;">${item.qty}</span>
+              <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
+            </td>
+            <td>${formatPrice(itemTotal)}</td>
+            <td><button class="remove-btn" onclick="removeFromCart(${item.id})">✕</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      const shippingUSD = subtotalUSD > 35 ? 0 : 3.50;
+      const totalUSD = subtotalUSD + shippingUSD;
+
+      container.innerHTML = `
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>${rowsHTML}</tbody>
+          </table>
+        </div>
+        <div class="cart-summary" style="max-width: 100%;">
+          <div><span>Subtotal:</span> <span>${formatPrice(subtotalUSD)}</span></div>
+          <div><span>Shipping:</span> <span>${shippingUSD === 0 ? 'FREE' : formatPrice(shippingUSD)}</span></div>
+          <div class="total"><span>Total:</span> <span>${formatPrice(totalUSD)}</span></div>
+          <button class="btn-checkout" onclick="closeModal('cart-modal'); openCheckoutModal(${totalUSD});">Proceed to Checkout</button>
+        </div>
+      `;
+    }
+
+    // --- Order History Modal ---
+    function renderHistoryModal() {
+      const container = document.getElementById('history-modal-body');
+      if (orderHistory.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 30px;">
+            <h3 style="color: var(--navy);">No order history found</h3>
+            <p style="color: var(--text-muted); margin-top: 8px;">Your completed orders will be stored here.</p>
+          </div>
+        `;
+        return;
+      }
+
+      let rowsHTML = orderHistory.map(ord => {
+        const badgeClass = ord.status === 'Delivered' ? 'badge-delivered' : 'badge-processing';
+        return `
+          <tr>
+            <td><strong>#${ord.id}</strong></td>
+            <td>${ord.date}</td>
+            <td>${formatPrice(ord.totalUSD)}</td>
+            <td><span class="badge ${badgeClass}">${ord.status}</span></td>
+            <td><button class="btn-detail" onclick="openOrderModal('${ord.id}')">View</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>${rowsHTML}</tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    // --- Authentication ---
+    function updateAuthUI() {
+      const area = document.getElementById('user-auth-area');
+      if (currentUser) {
+        area.innerHTML = `
+          <div class="user-welcome">
+            👤 ${currentUser.name}
+            <span onclick="logoutUser()">(Logout)</span>
+          </div>
+        `;
+      } else {
+        area.innerHTML = `<button onclick="openModal('auth-modal')">Login / Sign Up</button>`;
+      }
+    }
+
+    function toggleAuthMode() {
+      isSignUpMode = !isSignUpMode;
+      document.getElementById('auth-title').innerText = isSignUpMode ? "Create a NoteNest Account" : "Login to NoteNest";
+      document.getElementById('name-group').style.display = isSignUpMode ? "block" : "none";
+      document.getElementById('auth-submit-btn').innerText = isSignUpMode ? "Register Account" : "Sign In";
+      document.getElementById('auth-toggle-msg').innerText = isSignUpMode ? "Already have an account?" : "Don't have an account?";
+      document.getElementById('auth-toggle-link').innerText = isSignUpMode ? "Login here" : "Sign Up here";
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      const name = isSignUpMode ? document.getElementById('auth-name').value : email.split('@')[0];
+
+      currentUser = { name: name, email: email };
+      localStorage.setItem('notenest_user', JSON.stringify(currentUser));
+      updateAuthUI();
+      closeModal('auth-modal');
+      showToast(isSignUpMode ? "Account created successfully!" : "Logged in successfully!");
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem('notenest_user');
+      updateAuthUI();
+      showToast("Logged out successfully.");
+    }
+
+    // --- Modals Controller ---
+    function openModal(modalId) {
+      if (modalId === 'cart-modal') renderCartModal();
+      if (modalId === 'history-modal') renderHistoryModal();
+      document.getElementById(modalId).classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    function openProductModal(id) {
+      const p = PRODUCTS.find(item => item.id === id);
+      if (!p) return;
+
+      const body = document.getElementById('product-modal-body');
+      body.innerHTML = `
+        <img src="${p.img}" style="width: 100%; height: 240px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="${p.name}">
+        <h2 style="color: var(--navy);">${p.name}</h2>
+        <p style="color: var(--teal); font-weight: bold; margin: 4px 0 12px;">Brand: ${p.brand} | Category: ${p.category}</p>
+        <p style="color: var(--text-dark); line-height: 1.5; margin-bottom: 20px;">${p.desc}</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--card-border); padding-top: 15px;">
+          <span style="font-size: 22px; font-weight: 800; color: var(--coral);">${formatPrice(p.priceUSD)}</span>
+          <button class="btn-checkout" style="width: auto; padding: 10px 20px;" onclick="addToCart(${p.id}); closeModal('product-modal');">Add to Cart 🛒</button>
+        </div>
+      `;
+      openModal('product-modal');
+    }
+
+    let activeCheckoutTotalUSD = 0;
+    function openCheckoutModal(totalUSD) {
+      activeCheckoutTotalUSD = totalUSD;
+      document.getElementById('checkout-total-price').innerText = formatPrice(totalUSD);
+      if (currentUser) {
+        document.getElementById('cust-name').value = currentUser.name;
+        document.getElementById('cust-email').value = currentUser.email;
+      }
+      openModal('checkout-modal');
+    }
+
+    function processCheckout(e) {
+      e.preventDefault();
+      const name = document.getElementById('cust-name').value;
+      const email = document.getElementById('cust-email').value;
+      const address = document.getElementById('cust-address').value;
+      const payment = document.getElementById('cust-payment').value;
+
+      const orderId = "NN-" + Math.floor(100000 + Math.random() * 900000);
+      const today = new Date().toISOString().split('T')[0];
+
+      const newOrder = {
+        id: orderId,
+        date: today,
+        customer: { name, email, address, payment },
+        items: [...cart],
+        totalUSD: activeCheckoutTotalUSD,
+        status: "Processing"
+      };
+
+      orderHistory.unshift(newOrder);
+      localStorage.setItem('notenest_orders', JSON.stringify(orderHistory));
+
+      cart = [];
+      saveCart();
+
+      closeModal('checkout-modal');
+      showToast(`Order ${orderId} placed successfully!`);
+      openModal('history-modal');
+    }
+
+    function openOrderModal(orderId) {
+      const ord = orderHistory.find(o => o.id === orderId);
+      if (!ord) return;
+
+      const itemsList = ord.items.map(i => `
+        <li style="display:flex; justify-content:space-between; margin-bottom: 6px; font-size: 13px;">
+          <span>${i.name} x${i.qty}</span>
+          <strong>${formatPrice(i.priceUSD * i.qty)}</strong>
+        </li>
+      `).join('');
+
+      const body = document.getElementById('order-modal-body');
+      body.innerHTML = `
+        <h2 style="color: var(--navy); margin-bottom: 10px;">Order Details (#${ord.id})</h2>
+        <p><strong>Date:</strong> ${ord.date}</p>
+        <p><strong>Status:</strong> <span class="badge ${ord.status === 'Delivered' ? 'badge-delivered' : 'badge-processing'}">${ord.status}</span></p>
+        <hr style="margin: 15px 0; border: none; border-top: 1px solid var(--card-border);">
+        <h4 style="color: var(--navy); margin-bottom: 8px;">Shipping Details</h4>
+        <p style="font-size: 13px;"><strong>Customer:</strong> ${ord.customer.name}</p>
+        <p style="font-size: 13px;"><strong>Email:</strong> ${ord.customer.email}</p>
+        <p style="font-size: 13px;"><strong>Address:</strong> ${ord.customer.address}</p>
+        <p style="font-size: 13px;"><strong>Payment:</strong> ${ord.customer.payment}</p>
+        <hr style="margin: 15px 0; border: none; border-top: 1px solid var(--card-border);">
+        <h4 style="color: var(--navy); margin-bottom: 8px;">Items Ordered</h4>
+        <ul style="list-style: none;">${itemsList}</ul>
+        <div style="margin-top: 15px; border-top: 2px solid var(--navy); padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold;">
+          <span>Total Paid:</span>
+          <span style="color: var(--coral);">${formatPrice(ord.totalUSD)}</span>
+        </div>
+      `;
+      openModal('order-modal');
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      showToast("Message sent! We will contact you shortly.");
+      e.target.reset();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.className = "show";
+      setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+    }
+
+    // --- Initialization ---
+    renderAllProductGrids();
+    updateCartBadge();
+    updateAuthUI();
+  </script>
+</body>
+</html>
